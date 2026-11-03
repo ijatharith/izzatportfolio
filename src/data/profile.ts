@@ -67,14 +67,12 @@ export const profile = {
       title: "Foundation in Engineering and Computer Science",
       organisation: "International Islamic University Malaysia (IIUM)",
       kind: "Education",
-      description: "CGPA 3.59.",
     },
     {
       period: "2023",
       title: "Sijil Pelajaran Malaysia (SPM)",
       organisation: "SMK Ismail Petra",
       kind: "Education",
-      description: "3A+, 3A, 1A-, 1C+, 1C.",
     },
   ] as TimelineEntry[],
 
