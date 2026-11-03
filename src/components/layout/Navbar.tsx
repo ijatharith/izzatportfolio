@@ -160,6 +160,7 @@ export function Navbar() {
   const contactActive = isActivePath(pathname, contactNavItem.href);
 
   return (
+    <>
     <header
       ref={headerRef}
       data-scrolled="false"
@@ -256,7 +257,11 @@ export function Navbar() {
           </button>
         </div>
       </div>
+    </header>
 
+      {/* Rendered outside the header: the header's hide-on-scroll transform
+          would otherwise turn it into the containing block for this fixed
+          overlay, shrinking the menu to the header's height. */}
       <div
         ref={menuRef}
         id="mobile-menu"
@@ -264,7 +269,7 @@ export function Navbar() {
         aria-modal="true"
         aria-label="Site menu"
         aria-hidden={!open}
-        className="invisible fixed inset-0 top-0 flex flex-col bg-paper px-[var(--gutter)] pb-8 pt-[calc(var(--header-h)+2rem)] md:hidden"
+        className="invisible fixed inset-0 z-40 flex flex-col bg-paper px-[var(--gutter)] pb-8 pt-[calc(var(--header-h)+2rem)] md:hidden"
       >
         <p className="meta mb-6" data-menu-fade>
           [ Navigation ]
@@ -307,6 +312,6 @@ export function Navbar() {
           <span className="meta">[ {profile.location} ]</span>
         </div>
       </div>
-    </header>
+    </>
   );
 }

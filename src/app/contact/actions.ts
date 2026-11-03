@@ -95,7 +95,11 @@ export async function sendContactMessage(
       }),
       signal: AbortSignal.timeout(10_000),
     });
-    if (!res.ok) throw new Error(`Resend responded ${res.status}`);
+    if (!res.ok) {
+      // Resend's error body explains the rejection (e.g. unverified sender).
+      const detail = await res.text().catch(() => "");
+      throw new Error(`Resend responded ${res.status}: ${detail.slice(0, 500)}`);
+    }
   } catch (err) {
     console.error("Contact form delivery failed:", err);
     return {
