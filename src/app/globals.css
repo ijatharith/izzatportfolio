@@ -1,0 +1,242 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Design tokens
+   Outline = idea. Solid ink = reality. Blue is reserved for interaction
+   and for the "idea" state of the tagline.
+------------------------------------------------------------------- */
+@theme inline {
+  --color-paper: #fafaf8;
+  --color-ink: #171717;
+  --color-muted: #737373;
+  --color-accent: #2563eb;
+  --color-accent-strong: #1d4ed8;
+  --color-wash: #eff6ff;
+  --color-line: #e5e7eb;
+  --color-line-strong: #d4d4d4;
+  --color-success: #16a34a;
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --text-display: clamp(3rem, 12.5vw, 11.25rem);
+  --text-display--line-height: 0.86;
+  --text-display--letter-spacing: -0.065em;
+
+  --text-page: clamp(3rem, 7.4vw, 6.25rem);
+  --text-page--line-height: 0.92;
+  --text-page--letter-spacing: -0.055em;
+
+  --text-section: clamp(2.25rem, 4.6vw, 3.75rem);
+  --text-section--line-height: 1;
+  --text-section--letter-spacing: -0.045em;
+
+  --text-card: clamp(1.375rem, 2vw, 1.75rem);
+  --text-card--line-height: 1.1;
+  --text-card--letter-spacing: -0.025em;
+
+  --text-lead: clamp(1.125rem, 1.5vw, 1.375rem);
+  --text-lead--line-height: 1.45;
+  --text-lead--letter-spacing: -0.01em;
+
+  --text-meta: 0.75rem;
+  --text-meta--line-height: 1.4;
+
+  --radius-card: 14px;
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+:root {
+  --gutter: 20px;
+  --header-h: 64px;
+  color-scheme: light;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gutter: 32px;
+    --header-h: 72px;
+  }
+}
+
+html {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + 16px);
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  font-feature-settings: "ss01", "cv11";
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+a,
+button,
+[role="button"],
+label[for],
+summary {
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* ------------------------------------------------------------------
+   Idea / reality type treatment
+------------------------------------------------------------------- */
+.type-idea {
+  color: transparent;
+  -webkit-text-stroke: 0.018em var(--color-accent);
+  paint-order: stroke fill;
+}
+
+/* Solid layer drawn over .type-idea — same stroke width in ink so the
+   blueprint outline never peeks out around the filled glyphs. */
+.type-real {
+  color: var(--color-ink);
+  -webkit-text-stroke: 0.02em var(--color-ink);
+  paint-order: stroke fill;
+}
+
+@supports not (-webkit-text-stroke: 1px black) {
+  .type-idea {
+    color: var(--color-accent);
+  }
+}
+
+.mask-line {
+  display: block;
+  overflow: clip;
+  overflow-clip-margin: 0.12em;
+  padding-bottom: 0.04em;
+}
+
+/* Component classes live in a layer so Tailwind utilities can override
+   them (e.g. `meta text-ink`). */
+@layer components {
+  /* Bracketed metadata label, e.g. [ Malaysia ] */
+  .meta {
+    font-family: var(--font-mono);
+    font-size: var(--text-meta);
+    line-height: var(--text-meta--line-height);
+    letter-spacing: 0.01em;
+    color: var(--color-muted);
+  }
+
+  /* Underline that draws in from the left on hover/focus */
+  .link-draw {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.45s var(--ease-out-quart);
+  }
+  .link-draw:hover,
+  .link-draw:focus-visible {
+    background-size: 100% 1px;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Home hero: the tagline paints immediately as the blueprint outline (the
+   page's largest element, so LCP never waits on JS). GSAP then draws the
+   grid, fills "into reality." with ink and brings in the supporting copy.
+   These pieces pre-hide only when JS runs and motion is allowed; the
+   fallback animation guarantees visibility if scripts fail.
+------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-hero-rest],
+  .js [data-hero-word] {
+    opacity: 0;
+    animation: hero-fallback 0s linear 2.6s forwards;
+  }
+  .js [data-hero-fill] {
+    clip-path: inset(0 100% 0 0);
+    animation: hero-fallback 0s linear 2.6s forwards;
+  }
+  .js [data-hero-guide] {
+    transform: scaleY(0);
+    animation: hero-fallback 0s linear 2.6s forwards;
+  }
+
+  /* Internal page headers: a CSS entrance that starts on first paint and
+     replays on client navigation because the elements are new. */
+  [data-intro] {
+    animation: intro-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: var(--d, 0ms);
+  }
+}
+
+@keyframes intro-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
+@keyframes hero-fallback {
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transform: none;
+  }
+}
+
+/* Live activity pulse */
+.pulse-dot {
+  position: relative;
+}
+.pulse-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: currentColor;
+  animation: pulse 2.4s ease-out infinite;
+}
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  80%,
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
