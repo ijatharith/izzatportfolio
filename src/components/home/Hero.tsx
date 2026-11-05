@@ -9,6 +9,7 @@ import { ButtonLink, Meta } from "@/components/ui/primitives";
 import { LocalTime } from "@/components/layout/LocalTime";
 import { toolGroups } from "@/data/tools";
 import { ToolMarquee } from "./ToolMarquee";
+import DotGrid from "@/components/DotGrid";
 
 // Every app and tool on the Uses page, in the "Works with" carousel.
 const worksWith = [...new Set(toolGroups.flatMap((g) => g.tools.map((t) => t.name)))];
@@ -86,6 +87,19 @@ export function Hero() {
 
   return (
     <section ref={ref} aria-labelledby="hero-title" className="relative overflow-hidden">
+      {/* Dot grid — springs away from the pointer, behind all hero content */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <DotGrid
+          dotSize={4}
+          gap={22}
+          baseColor="#D4D4D8"
+          activeColor="#2563EB"
+          proximity={120}
+          shockRadius={220}
+          shockStrength={3}
+          glow={0.2}
+        />
+      </div>
       {/* Construction guides — the grid the idea is drafted on */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
         <div className="mx-auto grid h-full max-w-[1280px] grid-cols-4 px-[var(--gutter)] md:grid-cols-12">

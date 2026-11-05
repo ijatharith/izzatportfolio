@@ -1,10 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import "lenis/dist/lenis.css";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ScrollProgress } from "@/components/animations/ScrollProgress";
 import { ScrollTriggerSync } from "@/components/animations/ScrollTriggerSync";
+import { SmoothScroll } from "@/components/animations/SmoothScroll";
+import TargetCursor from "@/components/TargetCursor";
 import { profile } from "@/data/profile";
 import { siteUrl } from "@/lib/site";
 
@@ -66,6 +69,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
+        <SmoothScroll />
+        <TargetCursor
+          targetSelector="a, button"
+          cursorColor="#171717"
+          cursorColorOnTarget="#2563EB"
+          blendMode="normal"
+        />
         <ScrollTriggerSync />
         <ScrollProgress />
         <Navbar />

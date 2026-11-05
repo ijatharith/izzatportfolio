@@ -6,6 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { gsap, motion, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { contactNavItem, isActivePath, navItems } from "@/lib/site";
 import { profile } from "@/data/profile";
+import { getLenis } from "@/lib/lenis";
 import { cn } from "@/lib/utils";
 import { RollLabel } from "@/components/ui/primitives";
 
@@ -124,6 +125,7 @@ export function Navbar() {
     if (headerRef.current) headerRef.current.dataset.menu = open ? "open" : "closed";
     if (open) {
       tl?.timeScale(1).play();
+      getLenis()?.stop();
       document.documentElement.style.overflow = "hidden";
       if (main) main.inert = true;
       if (footer) footer.inert = true;
@@ -132,6 +134,7 @@ export function Navbar() {
       }, 80);
     } else {
       tl?.timeScale(1.6).reverse();
+      getLenis()?.start();
       document.documentElement.style.overflow = "";
       if (main) main.inert = false;
       if (footer) footer.inert = false;

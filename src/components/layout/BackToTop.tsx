@@ -2,6 +2,7 @@
 
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { gsap, motion } from "@/lib/gsap";
+import { getLenis } from "@/lib/lenis";
 
 gsap.registerPlugin(ScrollToPlugin);
 
@@ -26,9 +27,21 @@ export function BackToTop({ className }: { className?: string }) {
           focusTop();
           return;
         }
+        const duration = Math.min(1.4, 0.5 + window.scrollY / 4000);
+        // With smooth scrolling on, let Lenis drive the scroll so the two
+        // don't fight over the position.
+        const lenis = getLenis();
+        if (lenis) {
+          lenis.scrollTo(0, {
+            duration,
+            easing: (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2),
+            onComplete: focusTop,
+          });
+          return;
+        }
         gsap.to(window, {
           scrollTo: { y: 0, autoKill: true },
-          duration: Math.min(1.4, 0.5 + window.scrollY / 4000),
+          duration,
           ease: motion.ease.inOut,
           onComplete: focusTop,
         });
