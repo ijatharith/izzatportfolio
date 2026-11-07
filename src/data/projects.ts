@@ -11,19 +11,20 @@ export const projects: Project[] = [
     title: "TaskTrek",
     description:
       "A web-based academic task management platform that helps university students organise coursework, track assignments and manage deadlines from one dashboard.",
-    overview:
-      "TaskTrek is an academic task management system built by a university development team. Students sign in with their Student ID or email and manage coursework from a personalised dashboard — task statistics, deadlines for the next seven days, and every assignment in list or calendar view.",
+    about: [
+      "TaskTrek is an academic task and assignment management platform designed to help students organize their coursework and manage academic responsibilities more effectively. It provides a centralized dashboard where students can view their assignments, monitor upcoming deadlines, track pending tasks, and identify high-priority work. By organizing academic activities in one place, TaskTrek aims to make it easier for students to understand their workload and stay on top of important deadlines throughout the semester.",
+      "The platform also provides tools for managing individual assignments, including creating and editing tasks, assigning priority levels, recording course information, and updating completion statuses. Features such as assignment searching, filtering, and calendar-based organization allow students to manage their academic schedules according to their needs. TaskTrek focuses on making assignment management more structured and accessible, helping students maintain better organization and awareness of their academic progress.",
+    ],
     category: ["Web Development"],
     status: "Completed",
     context: "Academic team project",
     featured: true,
     featuredOrder: 4,
     cover: "tasktrek",
-    thumbnail: "/images/projects/tasktrek.png",
-    thumbnailAlt:
-      "TaskTrek graphic: the TaskTrek logo with the line \"A simple task and assignment manager for students\" and the labels Track Tasks, Manage Deadlines and Stay Organized, beside screens of the dashboard with pending, high-priority and completed counts and upcoming deadlines, the My Assignments table, and the Edit Assignment form.",
-    // Keep the logo and tagline in frame when the 16:9 image is cropped.
-    thumbnailPosition: "left center",
+    thumbnail: "/images/projects/tasktrek-logo.png",
+    thumbnailFit: "contain",
+    thumbnailSize: { width: 1929, height: 425 },
+    thumbnailAlt: "TaskTrek logo: a blue rounded square with a white check mark beside the word TaskTrek.",
     technologies: ["PHP", "Laravel", "MySQL", "Blade", "Tailwind CSS", "Eloquent ORM"],
     scope: [
       "Registration and authentication with Student ID or email",
@@ -44,20 +45,20 @@ export const projects: Project[] = [
     title: "Vigilance AI",
     description:
       "An AI-assisted SIEM and SOAR platform designed to support intelligent security incident investigation and automated response.",
-    overview:
-      "Vigilance AI explores how AI can support the work of investigating security incidents. It combines security event monitoring from Wazuh with AI-assisted analysis and automated response workflows, organised as a multi-agent system.",
+    about: [
+      "Vigilance AI is an AI-assisted Security Information and Event Management (SIEM) and Security Orchestration, Automation and Response (SOAR) platform designed to enhance cybersecurity monitoring and incident investigation. Built around Wazuh, the platform collects and monitors security events from connected endpoints to identify suspicious activities and potential threats. It aims to provide a centralized environment where security alerts can be monitored, investigated, and managed more efficiently.",
+      "The platform integrates AI capabilities through the OpenAI API and LangGraph to support intelligent security analysis and investigation. Its multi-agent architecture is designed to assist in interpreting security alerts, correlating relevant information, and generating actionable recommendations for incident response. Additionally, n8n supports workflow automation, helping coordinate response processes and reduce repetitive manual tasks. Vigilance AI explores how artificial intelligence can complement traditional security monitoring and improve the overall incident response workflow.",
+    ],
     category: ["Cybersecurity", "Artificial Intelligence"],
     status: "In Progress",
     context: "Final year project",
     featured: true,
     featuredOrder: 3,
     cover: "vigilance",
-    thumbnail: "/images/projects/vigilance-ai.png",
-    thumbnailAlt:
-      "Vigilance AI promotional graphic: a Security Operations Center dashboard with alerts and events, an AI agent analysis card, and a SOAR automation flow from alert to AI analysis to automated response.",
-    // Keep the logo and tagline in frame when the 16:9 image is cropped.
-    thumbnailPosition: "left center",
-    thumbnailTall: { src: "/images/projects/vigilance-ai-tall.png", width: 971, height: 1619 },
+    thumbnail: "/images/projects/vigilance-ai-logo.png",
+    thumbnailFit: "contain",
+    thumbnailSize: { width: 1892, height: 506 },
+    thumbnailAlt: "Vigilance AI logo: a black and red V mark beside the words Vigilance AI, with AI in red.",
     technologies: ["Python", "Wazuh", "OpenAI API", "LangGraph", "n8n"],
     scope: [
       "Security event monitoring",
@@ -68,30 +69,14 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "jomsadaqah",
-    title: "JomSadaqah",
-    description:
-      "A digital donation and fundraising platform designed to help organisations and communities manage fundraising campaigns and engage with donors.",
-    category: ["Web Development", "Digital Products"],
-    status: "On Hold",
-    featured: false,
-    cover: "jomsadaqah",
-    technologies: ["Next.js", "TypeScript", "Supabase", "PostgreSQL"],
-    scope: [
-      "Campaign management",
-      "Donation progress tracking",
-      "Donation messages",
-      "Organisation and club profiles",
-      "Payment workflow integration",
-    ],
-  },
-  {
     slug: "palas-creative",
     title: "Palas Creative",
     description:
       "A creative brand focused on sportswear, jersey design, visual identity, and graphic design.",
-    overview:
-      "Palas Creative is where I work as a freelance graphic designer, since December 2024. I design custom jerseys, banners, lanyards and other merchandise in Adobe Photoshop and Illustrator, and deliver print-ready files and mockups.",
+    about: [
+      "Palas Creative is a creative design brand specializing in sportswear, custom jersey design, and visual branding. It focuses on transforming ideas into distinctive visual identities through thoughtful design, typography, colour combinations, and creative patterns. The brand works on apparel concepts for teams, organizations, events, and communities, ensuring that each design reflects the identity and personality of its intended audience.",
+      "Beyond jersey design, Palas Creative explores the intersection of creativity, branding, and visual communication. Its work includes developing custom apparel concepts, refining logos, creating promotional graphics, and producing visual assets that help brands and organizations establish a recognizable identity. Through a combination of design experimentation and attention to detail, Palas Creative aims to turn creative concepts into meaningful visual experiences.",
+    ],
     category: ["Graphic Design", "Branding", "Entrepreneurship"],
     status: "In Progress",
     statusNote: "Ongoing since Dec 2024",
@@ -100,11 +85,10 @@ export const projects: Project[] = [
     featured: true,
     featuredOrder: 2,
     cover: "palas",
-    thumbnail: "/images/projects/palas-creative.png",
-    thumbnailTall: { src: "/images/projects/palas-creative-tall.png", width: 971, height: 1619 },
-    thumbnailAlt:
-      "Palas Creative brand graphic: the Palas Creative logo with the line \"Sportswear Design & Creative Studio\", beside front and back mockups of a black and red jersey with the Palas logo and the number 10, plus close-ups of the fabric, collar and pattern.",
-    thumbnailPosition: "left center",
+    thumbnail: "/images/projects/palas-creative-logo.png",
+    thumbnailFit: "contain",
+    thumbnailSize: { width: 2252, height: 834 },
+    thumbnailAlt: "Palas Creative logo: a black square P mark beside the words palas creative.",
     technologies: ["Adobe Photoshop", "Adobe Illustrator", "Canva"],
     liveUrl: "https://palas.pokokkaktus.my",
     scope: [
@@ -120,27 +104,34 @@ export const projects: Project[] = [
     title: "BayarSwift",
     description:
       "A centralised payment system for companies — admins create invoices, collect payment against them, and share payment links that take clients straight to a payment page.",
-    overview:
-      "BayarSwift brings a company's payments into one place. From the admin side, staff create invoices and take payment against them. They can also generate payment links to send to clients; each link opens a payment website where the client completes the payment.",
+    about: [
+      "BayarSwift is a centralized payment management system designed to help companies streamline and simplify their payment operations. It provides administrators with a unified platform to manage essential financial activities, including generating payment links, creating invoices, monitoring transactions, and managing customer information. The system aims to reduce the complexity of handling payments across different channels by bringing everything together in one organized dashboard.",
+      "Beyond basic payment management, BayarSwift focuses on improving financial visibility and administrative efficiency. Administrators can monitor payment statuses, track successful and unsuccessful transactions, manage outstanding invoices, and share payment links directly with customers. By centralizing these processes, BayarSwift aims to provide businesses with a more structured and convenient way to handle their payment operations.",
+    ],
     category: ["Software Development", "Business Systems"],
     status: "In Progress",
     context: "Built for Pokokkaktus",
     featured: true,
     featuredOrder: 1,
     cover: "bayarswift",
-    thumbnail: "/images/projects/bayarswift.png",
-    thumbnailAlt:
-      "BayarSwift admin screens: a payments dashboard showing verified revenue, successful, pending and failed payments, daily revenue and payment methods (FPX online banking, credit/debit card), flanked by an invoice form and an all-transactions list, above the line \"Pokokkaktus BayarSwift — A centralized payment system for the company.\"",
-    technologies: [
-      "JavaScript",
-      "React",
-      "Vite",
-      "Tailwind CSS",
-      "Node.js",
-      "Express",
-      "MongoDB",
-      "BayarCash (FPX)",
-      "Resend",
+    thumbnail: "/images/projects/bayarswift-logo.png",
+    thumbnailFit: "contain",
+    thumbnailSize: { width: 1931, height: 359 },
+    thumbnailAlt: "BayarSwift logo: a blue B mark beside the word BayarSwift, with Swift in blue.",
+    technologies: ["MERN Stack", "BayarCash"],
+    gallery: [
+      {
+        src: "/images/projects/bayarswift-dashboard.png",
+        alt: "BayarSwift admin dashboard: verified revenue, successful, pending and failed payment counts, a daily revenue bar chart, payment methods split between FPX online banking, card and e-wallet, recent transactions and an invoices summary, with a sidebar for payment links, transactions, invoices, pay invoice and customers.",
+        width: 1672,
+        height: 941,
+      },
+      {
+        src: "/images/projects/bayarswift-invoices.png",
+        alt: "BayarSwift invoices screen: a Create Invoice form with customer, invoice and due dates, terms, document number, document type and handler, beside a live preview of the printed Pokokkaktus invoice with line items, subtotal, SST and total, plus Save as Draft and Issue & Create Link buttons.",
+        width: 1692,
+        height: 930,
+      },
     ],
     architecture:
       "A React 19 single-page app (built with Vite, routed with React Router, styled with Tailwind CSS) talks to a Node.js and Express API backed by MongoDB Atlas through Mongoose. Payments run through BayarCash (FPX online banking): the server verifies BayarCash's payment notifications, and a background job re-checks pending payments so a payment is still confirmed if a notification never arrives. Admins sign in with hashed passwords and JWT tokens, and the API is protected with helmet, CORS rules and rate limiting. Receipts are emailed through Resend, and invoice PDFs are generated on the server. It is self-hosted, and every push to main is automatically tested (Vitest and Node's test runner) and deployed.",

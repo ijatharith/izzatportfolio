@@ -11,6 +11,7 @@ import { Reveal } from "@/components/animations/Reveal";
 import { ProjectVisual } from "@/components/projects/ProjectVisual";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import type { Project } from "@/types";
+import { cn } from "@/lib/utils";
 
 // Known slugs are prerendered below. Unknown slugs must resolve on the
 // server to return a real 404, so this route is allowed to block.
@@ -29,11 +30,10 @@ export async function generateMetadata(props: PageProps<"/projects/[slug]">): Pr
     description: project.description,
     path: `/projects/${project.slug}`,
     // Projects with a real image use it as the link preview.
-    image: project.thumbnail
+    image: project.thumbnail && project.thumbnailSize
       ? {
           url: project.thumbnail,
-          width: 1671,
-          height: 941,
+          ...project.thumbnailSize,
           alt: project.thumbnailAlt ?? `${project.title} preview`,
         }
       : undefined,
@@ -43,6 +43,7 @@ export async function generateMetadata(props: PageProps<"/projects/[slug]">): Pr
 /** Case-study sections, rendered only when the content exists. */
 function caseSections(p: Project) {
   return [
+    { id: "about", title: "About the project", paragraphs: p.about },
     { id: "problem", title: "Problem", body: p.problem },
     { id: "objectives", title: "Objectives", list: p.objectives },
     { id: "role", title: "My role", body: p.role },
@@ -52,7 +53,12 @@ function caseSections(p: Project) {
     { id: "challenges", title: "Challenges", list: p.challenges },
     { id: "results", title: p.status === "Completed" ? "Results" : "Current progress", body: p.results },
     { id: "learnings", title: "Lessons learned", list: p.learnings },
-  ].filter((s) => (s.body && s.body.length > 0) || (s.list && s.list.length > 0));
+  ].filter(
+    (s) =>
+      (s.body && s.body.length > 0) ||
+      (s.list && s.list.length > 0) ||
+      (s.paragraphs && s.paragraphs.length > 0),
+  );
 }
 
 export default async function ProjectPage(props: PageProps<"/projects/[slug]">) {
@@ -194,6 +200,11 @@ export default async function ProjectPage(props: PageProps<"/projects/[slug]">) 
                         {s.title}
                       </h2>
                       {s.body && <p className="mt-4 max-w-[64ch] text-muted" data-reveal>{s.body}</p>}
+                      {s.paragraphs?.map((para) => (
+                        <p key={para.slice(0, 40)} className="mt-4 max-w-[64ch] text-muted" data-reveal>
+                          {para}
+                        </p>
+                      ))}
                       {s.list && (
                         <ul className="mt-4 flex flex-col gap-2" data-reveal>
                           {s.list.map((item) => (
@@ -230,13 +241,34 @@ export default async function ProjectPage(props: PageProps<"/projects/[slug]">) 
         </div>
 
         {project.gallery && project.gallery.length > 0 && (
-          <Reveal className="mt-20 grid gap-6 md:grid-cols-2">
-            {project.gallery.map((img) => (
-              <div key={img.src} data-reveal="image" className="relative aspect-[4/3] overflow-hidden rounded-[var(--radius-card)] border border-line">
-                <Image src={img.src} alt={img.alt} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
-              </div>
-            ))}
-          </Reveal>
+          <section aria-labelledby="preview-title" className="mt-20 md:mt-28">
+            <h2 id="preview-title" className="meta">
+              Preview
+            </h2>
+            {/* One screen per row: app screenshots need full width to be legible. */}
+            <Reveal className="mt-6 grid gap-8 md:gap-10">
+              {project.gallery.map((img) => (
+                <div
+                  key={img.src}
+                  data-reveal="image"
+                  className={cn(
+                    "relative overflow-hidden rounded-[var(--radius-card)] border border-line bg-white",
+                    !(img.width && img.height) && "aspect-[4/3]",
+                  )}
+                  // Known proportions: show the whole screen, uncropped.
+                  style={img.width && img.height ? { aspectRatio: `${img.width} / ${img.height}` } : undefined}
+                >
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    sizes="(min-width: 1280px) 1216px, 100vw"
+                    className={img.width && img.height ? "object-contain" : "object-cover"}
+                  />
+                </div>
+              ))}
+            </Reveal>
+          </section>
         )}
       </Container>
 

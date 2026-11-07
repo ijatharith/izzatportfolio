@@ -85,24 +85,6 @@ function Vigilance() {
   );
 }
 
-function JomSadaqah() {
-  const bars = [0.72, 0.45, 0.88, 0.3];
-  return (
-    <Frame label="Illustration: fundraising campaign cards with progress bars." bg={PAPER}>
-      {bars.map((p, i) => (
-        <g key={i} transform={`translate(${130 + (i % 2) * 290}, ${110 + Math.floor(i / 2) * 200})`}>
-          <rect width="250" height="160" rx="14" fill="#fff" stroke={LINE} strokeWidth="2" />
-          <rect x="22" y="24" width="64" height="64" rx="10" fill={i === 2 ? ACCENT : WASH} />
-          <rect x="102" y="32" width="110" height="12" rx="6" fill={INK} />
-          <rect x="102" y="56" width="80" height="10" rx="5" fill={LINE} />
-          <rect x="22" y="116" width="206" height="10" rx="5" fill={LINE} />
-          <rect x="22" y="116" width={206 * p} height="10" rx="5" fill={i === 2 ? ACCENT : INK} />
-        </g>
-      ))}
-    </Frame>
-  );
-}
-
 function Palas() {
   return (
     <Frame label="Illustration: a jersey outline with diagonal stripe graphics and a monogram.">
@@ -246,7 +228,6 @@ function TaskTrek() {
 
 const covers: Record<CoverKey, () => ReactNode> = {
   vigilance: Vigilance,
-  jomsadaqah: JomSadaqah,
   palas: Palas,
   bayarswift: BayarSwift,
   "secure-messaging": SecureMessaging,

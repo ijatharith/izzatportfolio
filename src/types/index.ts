@@ -11,7 +11,6 @@ export type ExperimentStatus = "Experimental" | "In Progress" | "Completed" | "A
 /** Keys for the illustrative SVG covers in components/projects/covers. */
 export type CoverKey =
   | "vigilance"
-  | "jomsadaqah"
   | "palas"
   | "bayarswift"
   | "secure-messaging"
@@ -24,6 +23,8 @@ export interface Project {
   description: string;
   /** Longer introduction for the detail page. Falls back to description. */
   overview?: string;
+  /** "About the project" paragraphs, the first section of the detail page. */
+  about?: string[];
 
   category: string[];
   status: ProjectStatus;
@@ -44,12 +45,20 @@ export interface Project {
   /** CSS object-position used when the thumbnail is cropped, e.g. "left center". */
   thumbnailPosition?: string;
   /**
+   * "contain" shows the whole image centred with breathing room instead of
+   * cropping it to fill the frame. Used for logos.
+   */
+  thumbnailFit?: "cover" | "contain";
+  /** Pixel size of the thumbnail, used for link previews. */
+  thumbnailSize?: { width: number; height: number };
+  /**
    * Optional portrait version for tall cards (the homepage's tall slots).
    * The card takes this image's own proportions, so it is never cropped.
    */
   thumbnailTall?: { src: string; width: number; height: number };
   cover: CoverKey;
-  gallery?: { src: string; alt: string }[];
+  /** Screens shown on the detail page. With width/height they are never cropped. */
+  gallery?: { src: string; alt: string; width?: number; height?: number }[];
 
   /** Technologies or tools. */
   technologies: string[];

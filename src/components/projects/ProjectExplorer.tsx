@@ -380,7 +380,11 @@ function ProjectIndex({ projects }: { projects: Project[] }) {
               active === p.slug ? "opacity-100" : "opacity-0",
             )}
           >
-            {p.thumbnail ? (
+            {p.thumbnail && p.thumbnailFit === "contain" ? (
+              <div className="absolute inset-x-[12%] inset-y-[10%]">
+                <Image src={p.thumbnail} alt="" fill sizes="320px" className="object-contain" />
+              </div>
+            ) : p.thumbnail ? (
               <Image
                 src={p.thumbnail}
                 alt=""

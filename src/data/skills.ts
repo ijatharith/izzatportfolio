@@ -33,7 +33,7 @@ export const areas: { title: string; description: string; work: AreaWork[] }[] =
   {
     title: "Entrepreneurship",
     description: "Building business initiatives, products, and practical solutions.",
-    work: [{ slug: "palas-creative" }, { slug: "jomsadaqah" }],
+    work: [{ slug: "palas-creative" }],
   },
 ];
 
